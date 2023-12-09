@@ -1,14 +1,11 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 from urllib.parse import urlparse, parse_qs
-import json, openai
+import json
 
 
 
 def get_youtube_transcript(request):
 
-    # Set OpenAI API key
-    openai.api_key = "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"
-    
     # Get url from request body
     data = json.loads(request.body.decode('utf-8'))
     url = data.get('url')
