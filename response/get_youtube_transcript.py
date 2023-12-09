@@ -33,14 +33,6 @@ def get_youtube_transcript(request):
 
     # Join the sentences into a single string (transcript)
     entire_transcript = " ".join(sentences)
-
-    response = openai.ChatCompletion.create(
-        model="gpt-4-1106-preview",
-        messages=[{"role": "system", "content": entire_transcript}],
-        max_tokens=1  # to initialize the tokenizer
-    )
-    tokens = response['usage']["total_tokens"]
-    print(f"Total tokens: {tokens}")
-
+    
     # Return the transcript
     return entire_transcript
