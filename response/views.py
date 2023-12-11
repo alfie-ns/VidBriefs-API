@@ -5,7 +5,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .get_youtube_transcript import get_youtube_transcript
-
+from django.http import JsonResponse
+from .models import Video, UserInteraction
+from googleapiclient.discovery import build
+import os
 
 
 class GetYoutubeUrl(APIView):
@@ -17,10 +20,7 @@ class GetYoutubeUrl(APIView):
         return Response({'response': response}, status=status.HTTP_200_OK)
     
 
-    from django.http import JsonResponse
-from .models import Video, UserInteraction
-from googleapiclient.discovery import build
-import os
+    
 
 # ... [YouTube API integration code here, as previously described]
 
