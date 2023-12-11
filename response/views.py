@@ -19,18 +19,13 @@ class GetYoutubeUrl(APIView):
         # Return response to app
         return Response({'response': response}, status=status.HTTP_200_OK)
     
-
-    
-
-# ... [YouTube API integration code here, as previously described]
-
 def record_interaction(request):
     # Endpoint to record user interactions
     # Extract interaction data from request
     # Save to UserInteraction model
     pass
 
-def get_recommendations(request, user_id):
+def recommendation_info(request, user_id):
     # Endpoint to provide recommendations
     # Use user_id to tailor recommendations
     pass
