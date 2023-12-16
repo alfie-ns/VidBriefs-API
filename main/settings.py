@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '34.125.254.213', # Google Cloud VM instance
     'localhost', # Localhost for testing
-    '127.0.0.1' # 
+    '127.0.0.1' # Localhost for testing
     ]
 
 

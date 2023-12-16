@@ -3,6 +3,7 @@ from django.db import models
 class User(models.Model):
     username = models.CharField(max_length=100)
     email = models.EmailField()
+    # TODO: Add a preferance field that is constantly updated
 
 class Video(models.Model):
     video_id = models.CharField(max_length=100)
