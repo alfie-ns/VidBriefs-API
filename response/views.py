@@ -8,6 +8,7 @@ from .get_youtube_transcript import get_youtube_transcript
 from django.http import JsonResponse
 from .models import Video, UserInteraction
 from googleapiclient.discovery import build
+from .youtube_api import get_youtube_data
 import os
 
 
@@ -16,6 +17,14 @@ class GetYoutubeUrl(APIView):
     def post(self, request):
         # Parse JSON data from the request body
         response = get_youtube_transcript(request)
+        # Return response to app
+        return Response({'response': response}, status=status.HTTP_200_OK)
+    
+class GetYoutubeData(APIView):
+    @csrf_exempt
+    def post(self, request):
+        # Parse JSON data from the request body
+        response = get_youtube_data(request)
         # Return response to app
         return Response({'response': response}, status=status.HTTP_200_OK)
     
