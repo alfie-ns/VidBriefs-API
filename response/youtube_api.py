@@ -2,6 +2,10 @@ from django.http import JsonResponse
 from googleapiclient.discovery import build
 import os
 
+'''
+    Try API requests to fetch extr data regarding the video,
+    then add it to things the user likes and doesn't dislike
+'''
 YOUTUBE_API_KEY = os.environ.get('YOUTUBE_API_KEY')
 
 def get_youtube_data(request, video_id):
