@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-(=#cgyi8l)k(tr^_1dzrp7#8vik*ihu98gm!c)mfd%arq4w-)*
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '34.125.254.213', # Google Cloud VM instance
+    '34.66.187.223', # Google Cloud VM instance
     'localhost', # Localhost for testing
     '127.0.0.1' # Localhost for testing
     ]
