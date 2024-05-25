@@ -1,5 +1,12 @@
 # viddigest-api
 
+
+recreate venv each time:
+{
+python3 -m venv venv
+source venv/bin/activate
+}
+
 *source venv/bin/activate* -> Activate API's virtual environment on VM
 
 pip3 install google-api-python-client djangorestframework django youtube_transcript_api
