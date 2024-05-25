@@ -2,7 +2,7 @@
 
 *source venv/bin/activate* -> Activate API's virtual environment on VM
 
-pip install google-api-python-client djangorestframework django youtube_transcript_api
+pip3 install google-api-python-client djangorestframework django youtube_transcript_api
 
 python3 manage.py runserver 0.0.0.0:8000 -> Run on VM
 
