@@ -2,8 +2,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 from urllib.parse import urlparse, parse_qs
 import json
 
-
-
+# Function to get the transcript of a YouTube video, which'll be fed to GPT-4o for summary in .swift appp
 def get_youtube_transcript(request):
 
     # Get url from request body
