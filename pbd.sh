@@ -1,6 +1,4 @@
-# 1. Push
-# 2. Back out of dir
-# 3. Delete repo
+
 #!/bin/bash
 
 # Get the current directory name
@@ -17,3 +15,8 @@ else
   echo "Error: push.sh failed. Exiting."
 fi
 
+# 1. Push
+# 2. Back out of dir
+# 3. Delete repo
+
+# Push -> Backout -> Delete
