@@ -1,9 +1,10 @@
 # viddigest-api
 
-recreate venv each time:
+
 {
-python3 -m venv venv
-source venv/bin/activate
+0. python3 -m venv venv -> create new venv
+
+1. source venv/bin/activate -> actuvate venv
 }
 
 
