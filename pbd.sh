@@ -19,4 +19,15 @@ fi
 # 2. Back out of dir
 # 3. Delete repo
 
-# Push -> Backout -> Delete
+# 'alfie-ns' ascii
+cat <<'EOF'
+
+ ⚙️ Process complete ⚙️ 
+
+         _  __ _                     
+   __ _ | |/ _(_) ___       _ __  ___
+  / _` || | |_| |/ _ \_____| '_ \/ __|
+ | (_| || |  _| |  __/_____| | | \__ \
+  \__,_||_|_| |_|\___|     |_| |_|___/
+  
+EOF
