@@ -1,11 +1,13 @@
 # viddigest-api
 
-
 recreate venv each time:
 {
 python3 -m venv venv
 source venv/bin/activate
 }
+
+
+- [ ] Create 'create-db.sh
 
 *source venv/bin/activate* -> Activate API's virtual environment on VM
 
