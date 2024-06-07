@@ -1,2 +1,2 @@
 - [ ]  You want to get more infomation about the particular video chosen by the user, and gain reccomendation points to guess what the user's interest is.
-- [ ] Add code from swift app for summrising a video
+- [X] Add code from swift app for summrising a video
