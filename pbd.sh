@@ -10,7 +10,6 @@ if ./push.sh; then
   cd ..
   # Remove the original directory
   rm -rf "$current_dir"
-  echo "Process completed successfully."
 else
   echo "Error: push.sh failed. Exiting."
 fi
