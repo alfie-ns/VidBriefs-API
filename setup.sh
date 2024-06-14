@@ -39,17 +39,6 @@ EOF
 
 echo -e "\nDatabase setup complete. Please ensure your Django settings.py is updated with the following configuration:"
 
-echo "DATABASES = {"
-echo "    'default': {"
-echo "        'ENGINE': 'django.db.backends.postgresql',"
-echo "        'NAME': '$DB_NAME',"
-echo "        'USER': '$DB_USER',"
-echo "        'PASSWORD': '$DB_PASSWORD',"
-echo "        'HOST': '$DB_HOST',"
-echo "        'PORT': '5432',"
-echo "    }"
-echo "}"
-
 echo -e "\nRun migrations and create a superuser as necessary."
 
 # Unset the password for security reasons

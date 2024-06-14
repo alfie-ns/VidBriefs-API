@@ -17,24 +17,24 @@ fi # End the if-then statement
 
 # ------------------------------------INSTALL REQUIRED PACKAGES----------------------------------------
 # Upgrade pip to the latest version
-pip install --upgrade pip
+pip3 install --upgrade pip
 
 # Install required packages from requirements.txt
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 # The venv holds the required packages for the project
 # -----------------------------------------------------------------------------------------------------
 
-# ------------------------------------CHECK AND CREATE DATABASE----------------------------------------
-# Check if the database exists
-DB_EXISTS=$(psql -h $DB_HOST -U $DB_USER -lqt | cut -d \| -f 1 | grep -w $DB_NAME | wc -l)
-
-if [ "$DB_EXISTS" -eq "0" ]; then
-    echo "Database '$DB_NAME' does not exist. Creating it..."
-    psql -h $DB_HOST -U $DB_USER -c "CREATE DATABASE $DB_NAME;"
-else
-    echo "Database '$DB_NAME' already exists."
-fi
-# -----------------------------------------------------------------------------------------------------
+## ------------------------------------CHECK AND CREATE DATABASE----------------------------------------
+## Check if the database exists
+#DB_EXISTS=$(psql -h $DB_HOST -U $DB_USER -lqt | cut -d \| -f 1 | grep -w $DB_NAME | wc -l)
+#
+#if [ "$DB_EXISTS" -eq "0" ]; then
+#    echo "Database '$DB_NAME' does not exist. Creating it..."
+#    psql -h $DB_HOST -U $DB_USER -c "CREATE DATABASE $DB_NAME;"
+#else
+#    echo "Database '$DB_NAME' already exists."
+#fi
+## -----------------------------------------------------------------------------------------------------
 
 # ------------------------------------APPLY DATABASE MIGRATIONS----------------------------------------
 echo -e "\nApplying database migrations"
