@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
+// [ ] i need to get an ai to check for the ted-talk chosen by the user
+
 def get_tedtalk_transcript(ted_url):
     """
     Fetches the transcript of a TED Talk from the given URL.
