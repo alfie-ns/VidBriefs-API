@@ -1,18 +1,21 @@
 import requests
 from bs4 import BeautifulSoup
 
-// [ ] i need to get an ai to check for the ted-talk chosen by the user
+# [ ] i need to get an ai to check for the ted-talk chosen by the user
+# [ ] i the ai will learn from all the ted-talks and make u a pla ?
+# [ ] i need to get the transcript of the ted-talk from .md markdown files for each ted-talk
+# [ ] Essentially, this is just an API which will send the markdown file data to the swift app which will handle the AI API
 
-def get_tedtalk_transcript(ted_url):
+def get_tedtalk_transcript(tedTalk):
     """
     Fetches the transcript of a TED Talk from the given URL.
 
-    :param ted_url: URL of the TED Talk
+    :param tedTalk: URL of the TED Talk
     :return: Transcript text or None if not found
     """
     try:
         # Send a GET request to the TED Talk URL
-        response = requests.get(ted_url)
+        response = requests.get(tedTalk)
         response.raise_for_status()  # Raise an exception for 4xx or 5xx status codes
         
         # Parse the HTML content using BeautifulSoup
