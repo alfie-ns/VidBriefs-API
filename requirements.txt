@@ -38,5 +38,5 @@ youtube-transcript-api==0.6.2     # API for retrieving YouTube video transcripts
 python-dotenv==1.0.1             # Load environment variables from a `.env` file into Python’s `os.environ`.
 
 # PostgreSQL adapter
-psycopg2==2.9.8                   # PostgreSQL database adapter for Python, used to connect Django to a PostgreSQL database.
-# psycopg==3.2.0                  # (Alternative) Modern PostgreSQL database adapter for Python, also connects Django to PostgreSQL.
+#psycopg2==2.9.8                   # PostgreSQL database adapter for Python, used to connect Django to a PostgreSQL database.
+psycopg==3.2.0                  # Modern PostgreSQL database adapter for Python, also connects Django to PostgreSQL.
