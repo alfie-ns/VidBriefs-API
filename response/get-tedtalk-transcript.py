@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 # [ ] i the ai will learn from all the ted-talks and make u a pla ?
 # [ ] i need to get the transcript of the ted-talk from .md markdown files for each ted-talk
 # [ ] Essentially, this is just an API which will send the markdown file data to the swift app which will handle the AI API
+# [ ] {give me more useful functionality 
 
 def get_tedtalk_transcript(tedTalk):
     """
