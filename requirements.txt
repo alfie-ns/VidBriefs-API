@@ -7,5 +7,5 @@ requests==2.32.3
 soupsieve==2.5
 urllib3>=1.26.19,<2.1
 youtube-transcript-api==0.6.2
-django==4.2.2
+django==4.2.11
 python-dotenv==1.0.0
