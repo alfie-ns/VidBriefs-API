@@ -13,10 +13,16 @@ load_env() {
 load_env
 
 # Activate virtual environment
-source venv/bin/activate
-
-# Start Django server
-echo "Starting Django server..."
-python manage.py runserver
-
-echo "Server started."
+if source venv/bin/activate; then
+    # Start Django server
+    echo "Starting Django server..."
+    if python manage.py runserver; then # if server started successfully
+        echo "Server started."
+    else # if server failed to start
+        echo "Failed to start the Django server."
+        exit 1 # 1 indicates an error
+    fi
+else # if virtual environment failed to activate
+    echo "Failed to activate the virtual environment."
+    exit 1 # safe exit
+fi

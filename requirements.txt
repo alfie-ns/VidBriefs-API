@@ -1,42 +1,11 @@
-# Django dependencies
-asgiref==3.8.1                    # ASGI (Asynchronous Server Gateway Interface) reference implementation, needed for async support in Django.
-Django==5.0.6                     # Django web framework, used to build web applications.
-
-# Django REST framework dependencies
-djangorestframework==3.15.1       # Toolkit for building Web APIs using Django.
-
-# Google API dependencies
-google-api-core==2.19.0           # Core components for Google APIs, providing common functionality.
-google-api-python-client==2.130.0 # Client library for accessing Google APIs.
-google-auth==2.29.0               # Google Authentication Library, handles OAuth 2.0 authentication.
-google-auth-httplib2==0.2.0       # Google authentication support for httplib2.
-googleapis-common-protos==1.63.0  # Protocol buffers for Google APIs, used for serialization of structured data.
-
-# HTTP libraries
-httplib2==0.22.0                  # Comprehensive HTTP client library.
-requests==2.32.2                  # Simple HTTP library for Python, used to make HTTP requests.
-
-# Miscellaneous utilities
-cachetools==5.3.3                 # Caching tools for Python, used to optimize performance with caching.
-certifi==2024.2.2                 # Provides Mozilla’s CA Bundle, used for SSL/TLS verification.
-charset-normalizer==3.3.2         # Character encoding auto-detection library, used to handle various encodings.
-idna==3.7                         # Internationalized Domain Names support, used for handling non-ASCII domain names.
-proto-plus==1.23.0                # Utilities for protobufs (protocol buffers), an efficient data interchange format.
-protobuf==4.25.3                  # Protocol buffers library for serializing structured data.
-pyasn1==0.6.0                     # Pure-Python implementation of ASN.1 data structures, used for encoding and decoding.
-pyasn1_modules==0.4.0             # ASN.1 data structures for Python, used in security and network protocols.
-pyparsing==3.1.2                  # Parsing module, used for defining grammars and parsing text.
-rsa==4.9                          # Pure-Python RSA implementation, used for encryption and decryption.
-sqlparse==0.5.0                   # SQL parser, used to format and parse SQL statements.
-uritemplate==4.1.1                # URI Template processor, used for URL templating.
-urllib3==2.2.1                    # HTTP client for Python, used for making HTTP requests with more control and features.
-
-# YouTube transcript API
-youtube-transcript-api==0.6.2     # API for retrieving YouTube video transcripts.
-
-# Environment variable management
-python-dotenv==1.0.1             # Load environment variables from a `.env` file into Python’s `os.environ`.
-
-# PostgreSQL adapter
-#psycopg2==2.9.8                   # PostgreSQL database adapter for Python, used to connect Django to a PostgreSQL database.
-psycopg==3.2.0                  # Modern PostgreSQL database adapter for Python, also connects Django to PostgreSQL.
+beautifulsoup4==4.12.3
+certifi==2024.6.2
+charset-normalizer==3.3.2
+djangorestframework==3.16.0
+idna==3.7
+requests==2.32.3
+soupsieve==2.5
+urllib3==2.2.1
+youtube-transcript-api==0.6.2
+django==4.2.2
+python-dotenv==1.0.0

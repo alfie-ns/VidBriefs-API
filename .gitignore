@@ -1,3 +1,35 @@
-venv
+# Virtual environment
+venv/
+
+# Look for macOS system files recursively created in every subfolder
 *.DS_Store
+
+# Environment variables
 .env
+
+# Python bytecode files
+__pycache__/
+*.py[cod]
+
+# IDEs and editors
+.vscode/
+.idea/
+
+# Log files
+*.log
+
+# Test results
+.pytest_cache/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Miscellaneous system files
+.AppleDouble
+.LSOverride
+._*
+.Trash-*

@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-# [ ] i need to get an ai to check for the ted-talk chosen by the user
+# [ ] i need to extract all the text of a particular .md markkdown file the user wants a summarisation of
 # [ ] i the ai will learn from all the ted-talks and make u a pla ?
 # [ ] i need to get the transcript of the ted-talk from .md markdown files for each ted-talk
 # [ ] Essentially, this is just an API which will send the markdown file data to the swift app which will handle the AI API
