@@ -2,7 +2,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .get_youtube_transcript import get_youtube_transcript
+from response import get_youtube_transcript
 from .youtube_api import get_youtube_data
 from django.http import JsonResponse
 import os
