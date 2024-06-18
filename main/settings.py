@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'response', # response app h
     'rest_framework', # rest framework
     'rest_framework.authtoken', # rest framework auth token
+    'ted_talks', # ted_talks app
 ]
 
 MIDDLEWARE = [
