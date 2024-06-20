@@ -1,4 +1,4 @@
-# viddigest-api
+# VidBriefs-api
 
 {
 0. python3 -m venv venv -> create new venv
