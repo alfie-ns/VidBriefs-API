@@ -6,8 +6,10 @@
 1. source venv/bin/activate -> actuvate venv
    }
 
-- [ ] Create 'create-db.sh
-- [ ] Create TED-talks
+- [X] Create 'create-db.sh
+- [X] Create TED-talks
+- [ ] Get TED-talks working
+- [ ] Summarising books
 
 *source venv/bin/activate* -> Activate API's virtual environment on VM
 
