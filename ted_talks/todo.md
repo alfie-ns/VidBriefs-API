@@ -1,3 +1,7 @@
-- [ ] Get a list of all tedtalks availaibe to summarise
+- [X] Get a list of all tedtalks availaibe to summarise
+- [X] Get transcript from API call
+- [X] ListAllTalks API Request
+- [ ] Get AI to put ListAllTalks into categories
+- [ ] Create a 'chatgpt' chat will it can find yt videos and ted talks
 - [ ] Summarise chosen ted talk
 - [ ] Connect API to APP for tedtalks

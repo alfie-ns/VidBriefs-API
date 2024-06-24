@@ -1,65 +1,53 @@
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 import os
-from bs4 import BeautifulSoup
-import markdown, requests
+import markdown
+import json
 
-def extract_markdown_text(md_file_path):
-    """
-    Extracts all text from a .md markdown file.
-    Copy:param md_file_path: Path to the markdown file
-    :return: Plain text content of the markdown file
-    """
+# Base directory where the markdown files are stored
+BASE_DIRECTORY = 'TED-talks/cleaned_ted_archive_data/'
+
+# Function to load TED Talk transcripts from Markdown files
+def load_transcript_from_markdown(file_path):
     try:
-        with open(md_file_path, 'r') as file:
-            md_text = file.read()
-
-        # Convert markdown to HTML using the markdown library
-        html = markdown.markdown(md_text)
-
-        # Parse the HTML using BeautifulSoup
-        soup = BeautifulSoup(html, 'html.parser')
-
-        # Extract the plain text from the parsed HTML
-        plain_text = soup.get_text()
-
-        return plain_text.strip()
+        with open(file_path, 'r', encoding='utf-8') as file:
+            transcript_text = file.read()
+        # Convert Markdown to HTML
+        html = markdown.markdown(transcript_text)
+        return html
     except FileNotFoundError:
-        print(f"File not found: {md_file_path}")
         return None
-    except Exception as e:
-        print(f"An error occurred while processing the markdown file: {e}")
-        return None
-    
-# ------------------------------------------------------------------------------------------------------------------------------------------------ 
 
-def summarize_text(text, api_url, api_key):
-    """
-    Sends text to an API for summarization.
-    Copy:param text: Text to be summarized
-    :param api_url: API endpoint for summarization
-    :param api_key: API key for authorization
-    :return: Summarized text or None if summarization fails
-    """
-    try:
-        headers = {
-            'Authorization': f'Bearer {api_key}',
-            'Content-Type': 'application/json'
-        }
-        payload = {
-            'model': 'gpt-4',  # Model used for summarization
-            'messages': [
-                {'role': 'system', 'content': 'Summarize the following text.'},
-                {'role': 'user', 'content': text}
-            ]
-        }
-        response = requests.post(api_url, headers=headers, json=payload)
-        response.raise_for_status()  # Raise an exception for HTTP errors
+# Function to list available TED Talk titles
+def list_available_ted_talks(directory):
+    return [f.replace('_', ' ').replace('.md', '') for f in os.listdir(directory) if f.endswith('.md')]
 
-        result = response.json()
-        if 'choices' in result and len(result['choices']) > 0:
-            return result['choices'][0]['message']['content']
-        else:
-            print("Summarization failed: No choices in response.")
-            return None
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred while sending the text for summarization: {e}")
-        return None
+# Function to find TED Talk markdown file based on user input
+def find_tedtalk_file(user_input, directory):
+    for filename in os.listdir(directory):
+        if filename.endswith('.md') and user_input.lower() in filename.lower():
+            return os.path.join(directory, filename)
+    return None
+
+@csrf_exempt
+def get_tedtalk_transcript(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)  # Load JSON data from request body
+            user_input = data.get('title')  # Extract 'title' from JSON data
+            if user_input:
+                file_path = find_tedtalk_file(user_input, BASE_DIRECTORY)
+                if file_path:
+                    transcript = load_transcript_from_markdown(file_path)
+                    if transcript:
+                        return JsonResponse({'transcript': transcript})
+                    else:
+                        return JsonResponse({'error': 'Transcript not found'}, status=404)
+                else:
+                    return JsonResponse({'error': 'TED Talk not found'}, status=404)
+            else:
+                return JsonResponse({'error': 'Invalid request, title missing'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
