@@ -1,0 +1,2 @@
+- [ ] Ted talks django app
+- [ ] Uni lecture note maker django app
