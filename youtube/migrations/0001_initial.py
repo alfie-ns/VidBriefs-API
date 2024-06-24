@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('interaction_type', models.CharField(max_length=50)),
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='response.user')),
-                ('video', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='response.video')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='youtube.user')),
+                ('video', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='youtube.video')),
             ],
         ),
     ]

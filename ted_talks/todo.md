@@ -1,0 +1,3 @@
+- [ ] Get a list of all tedtalks availaibe to summarise
+- [ ] Summarise chosen ted talk
+- [ ] Connect API to APP for tedtalks

@@ -2,8 +2,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from response import get_youtube_transcript
-from .youtube_api import get_youtube_data
+from youtube import get_youtube_transcript
+#from .youtube_api import get_youtube_data
 from django.http import JsonResponse
 import os
 import markdown
@@ -50,22 +50,22 @@ class GetYoutubeData(APIView):
 # Function-Based View to fetch TED Talk transcript
 @csrf_exempt
 def get_ted_talk_transcript(request):
-    if request.method == 'POST':
-        user_input = request.POST.get('title')
-        if user_input:
-            file_path = find_ted_talk_file(user_input, BASE_DIRECTORY)
-            if file_path:
-                transcript = load_transcript_from_markdown(file_path)
-                if transcript:
-                    return JsonResponse({'transcript': transcript})
-                else:
-                    return JsonResponse({'error': 'Transcript not found'}, status=404)
-            else:
-                return JsonResponse({'error': 'TED Talk not found'}, status=404)
-        else:
-            return JsonResponse({'error': 'Invalid request, title missing'}, status=400)
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+    if request.method == 'POST': # if request method is POST
+        user_input = request.POST.get('title') # get the title from the POST request
+        if user_input: # if title is NOT empty
+            file_path = find_ted_talk_file(user_input, BASE_DIRECTORY) # ??
+            if file_path: # if file_path is NOT empty
+                transcript = load_transcript_from_markdown(file_path) # load transcript from markdown file
+                if transcript: # if transcript is NOT empty
+                    return JsonResponse({'transcript': transcript}) # return transcript as JSON response
+                else: # if transcript is empty
+                    return JsonResponse({'error': 'Transcript not found'}, status=404) # return error message
+            else: # if file_path is empty
+                return JsonResponse({'error': 'TED Talk not found'}, status=404) # return error message
+        else: # if title is empty
+            return JsonResponse({'error': 'Invalid request, title missing'}, status=400) # return error message
+    else: # if request method is NOT POST
+        return JsonResponse({'error': 'Invalid request method'}, status=405) # return error message
 
 # Function-Based View to list available TED Talks
 def list_ted_talks(request):

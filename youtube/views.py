@@ -8,7 +8,6 @@ from .get_youtube_transcript import get_youtube_transcript
 from django.http import JsonResponse
 from .models import Video, UserInteraction
 from googleapiclient.discovery import build
-from .youtube_api import get_youtube_data
 import os
 
 class GetYoutubeUrl(APIView):

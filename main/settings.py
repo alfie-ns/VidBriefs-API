@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'response', # response app h
+    'youtube', # youtube app h
     'rest_framework', # rest framework
     'rest_framework.authtoken', # rest framework auth token
     'ted_talks', # ted_talks app
