@@ -1,8 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-import os
-import markdown
-import json
+import os, markdown, json
 
 # Adjusted Base directory where the markdown files are stored
 BASE_DIRECTORY = os.path.join(os.path.dirname(__file__), 'TED-talks')
