@@ -18,10 +18,6 @@ def load_transcript_from_markdown(file_path):
     except FileNotFoundError:
         return None
 
-# Function to list available TED Talk titles in a given directory
-def list_ted_talks_in_directory(directory):
-    return [f.replace('_', ' ').replace('.md', '') for f in os.listdir(directory) if f.endswith('.md')]
-
 # Recursive function to list all TED Talk titles in the base directory
 def list_all_ted_talks(directory):
     all_talks = []
@@ -35,29 +31,33 @@ def list_all_ted_talks(directory):
 
 # Function to find TED Talk markdown file based on user input
 def find_tedtalk_file(user_input, directory):
-    for filename in os.listdir(directory):
-        if filename.endswith('.md') and user_input.lower() in filename.lower():
-            return os.path.join(directory, filename)
+    for root, dirs, files in os.walk(directory):
+        for filename in files:
+            if filename.endswith('.md') and user_input.lower() in filename.lower():
+                return os.path.join(root, filename)
     return None
 
 @csrf_exempt
-def get_tedtalk_transcript(request):
+def get_tedtalk_transcripts(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)  # Load JSON data from request body
-            user_input = data.get('title')  # Extract 'title' from JSON data
-            if user_input:
-                file_path = find_tedtalk_file(user_input, BASE_DIRECTORY)
-                if file_path:
-                    transcript = load_transcript_from_markdown(file_path)
-                    if transcript:
-                        return JsonResponse({'transcript': transcript})
+            titles = data.get('titles')  # Extract 'titles' from JSON data (expecting a list of titles)
+            if titles and isinstance(titles, list):
+                transcripts = {}
+                for title in titles:
+                    file_path = find_tedtalk_file(title, BASE_DIRECTORY)
+                    if file_path:
+                        transcript = load_transcript_from_markdown(file_path)
+                        if transcript:
+                            transcripts[title] = transcript
+                        else:
+                            transcripts[title] = 'Transcript not found'
                     else:
-                        return JsonResponse({'error': 'Transcript not found'}, status=404)
-                else:
-                    return JsonResponse({'error': 'TED Talk not found'}, status=404)
+                        transcripts[title] = 'TED Talk not found'
+                return JsonResponse({'transcripts': transcripts})
             else:
-                return JsonResponse({'error': 'Invalid request, title missing'}, status=400)
+                return JsonResponse({'error': 'Invalid request, titles missing or not a list'}, status=400)
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
     else:
