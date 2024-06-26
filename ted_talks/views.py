@@ -61,7 +61,7 @@ def get_tedtalk_transcripts(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-# New endpoint to list all TED Talks
+# Endpoint to list all TED Talks
 def list_all_talks(request):
     if request.method == 'GET':
         all_talks = list_all_ted_talks(BASE_DIRECTORY)
