@@ -1,7 +1,8 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from .recommendations import recommend_talks
 import os, markdown, json
-
+ 
 # Adjusted Base directory where the markdown files are stored
 BASE_DIRECTORY = os.path.join(os.path.dirname(__file__), 'TED-talks')
 
@@ -41,6 +42,8 @@ def get_tedtalk_transcripts(request):
         try:
             data = json.loads(request.body)  # Load JSON data from request body
             titles = data.get('titles')  # Extract 'titles' from JSON data (expecting a list of titles)
+            title = data.get('title')  # Extract 'title' from JSON data (expecting a single title)
+
             if titles and isinstance(titles, list):
                 transcripts = {}
                 for title in titles:
@@ -54,17 +57,37 @@ def get_tedtalk_transcripts(request):
                     else:
                         transcripts[title] = 'TED Talk not found'
                 return JsonResponse({'transcripts': transcripts})
+            
+            elif title and isinstance(title, str):
+                transcripts = {}
+                file_path = find_tedtalk_file(title, BASE_DIRECTORY)
+                if file_path:
+                    transcript = load_transcript_from_markdown(file_path)
+                    if transcript:
+                        transcripts[title] = transcript
+                    else:
+                        transcripts[title] = 'Transcript not found'
+                else:
+                    transcripts[title] = 'TED Talk not found'
+                return JsonResponse({'transcripts': transcripts})
             else:
-                return JsonResponse({'error': 'Invalid request, titles missing or not a list'}, status=400)
+                return JsonResponse({'error': 'Invalid request, title or titles missing or incorrect format'}, status=400)
+        
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-# Endpoint to list all TED Talks
+# New endpoint to list all TED Talks
 def list_all_talks(request):
     if request.method == 'GET':
         all_talks = list_all_ted_talks(BASE_DIRECTORY)
         return JsonResponse({'ted_talks': all_talks})
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
+    
+def get_user_interests(request):
+    interests = request.GET.get('interests', '')
+    recommended_talks = recommend_talks(interests)
+    talks = [{'title': talk.title, 'id': talk.id} for talk in recommended_talks]
+    return JsonResponse({'recommended_talks': talks})
