@@ -1,3 +1,5 @@
+# ted_talks/models.py
+
 from django.db import models
 
 class TedTalk(models.Model):

@@ -1,4 +1,15 @@
 # recommendations.py
+
+'''
+    This file will contain functionality to recommend the next thing to watch based on interest.
+
+    [ ] The 'recommend_talks' function will take in user interests and return a list of recommended TED Talks.
+    [ ] The function will use the TF-IDF Vectorizer to transform the user interests and TED Talk keywords into the TF-IDF space.
+    [ ] It will then compute the cosine similarities between the user interests and TED Talks.
+    [ ] Finally, it will return the top-n recommended TED Talks based on the cosine similarities.
+
+'''
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 from .models import TedTalk

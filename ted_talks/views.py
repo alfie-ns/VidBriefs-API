@@ -1,6 +1,8 @@
+# ted_talks/views.py
+
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from .recommendations import recommend_talks
+#from .recommendations import recommend_talks
 import os, markdown, json
  
 # Adjusted Base directory where the markdown files are stored
@@ -86,8 +88,21 @@ def list_all_talks(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
     
-def get_user_interests(request):
-    interests = request.GET.get('interests', '')
-    recommended_talks = recommend_talks(interests)
-    talks = [{'title': talk.title, 'id': talk.id} for talk in recommended_talks]
-    return JsonResponse({'recommended_talks': talks})
+#def user_interests: [ ] # User interests to be as an ai guesses user'
+
+def get_recommendations(request):
+    # Assuming you have a way to get the user's watched talks
+    user = request.user  # You'll need to implement user authentication
+    watched_talks = TedTalk.objects.filter(watched_by=user)  # You'll need to implement a way to track watched talks
+
+    user_interests = guess_user_interests(watched_talks)
+    all_talks = TedTalk.objects.all()
+    recommended_talks = recommend_talks(user_interests, all_talks)
+
+    recommendations = [summarize_talk(talk) for talk in recommended_talks]
+
+    return JsonResponse({'recommendations': recommendations})
+
+def recommend_talks(request):
+    # Placeholder implementation
+    pass
