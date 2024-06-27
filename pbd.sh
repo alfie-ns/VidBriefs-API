@@ -3,7 +3,7 @@
 # Get the current directory name
 current_dir=$(basename "$PWD")
 
-# Run the push script
+# if succesfully pushed, back out of the directory and delete it off local
 if ./push.sh; then
   # Change to the parent directory if push.sh succeeds
   cd ..
@@ -22,10 +22,10 @@ cat <<'EOF'
 ╔════════════════════════╗
 ║ ╬⚙️ Process complete ⚙️╬ ║
 ╚════════════════════════╝
-         _  __ _                     
-   __ _ | |/ _(_) ___       _ __  ___
-  / _` || | |_| |/ _ \_____| '_ \/ __|
- | (_| || |  _| |  __/_____| | | \__ \
-  \__,_||_|_| |_|\___|     |_| |_|___/
+|        _  __ _                     
+|  __ _ | |/ _(_) ___       _ __  ___
+| / _` || | |_| |/ _ \_____| '_ \/ __|
+|| (_| || |  _| |  __/_____| | | \__ \
+| \__,_||_|_| |_|\___|     |_| |_|___/
 
 EOF
