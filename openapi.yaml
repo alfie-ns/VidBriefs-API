@@ -1,0 +1,159 @@
+openapi: 3.1.0
+info:
+  title: VidBriefs API
+  description: Comprehensive API for interacting with local services and processing transcripts with OpenAI GPT-4.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000
+    description: Local development server
+  - url: https://api.openai.com/v1
+    description: OpenAI server
+paths:
+  /ted_talks/get_tedtalk_transcripts/:
+    get:
+      operationId: getTedTalkTranscripts
+      summary: Get TED Talk Transcripts
+      description: Retrieves transcripts for TED Talks.
+      responses:
+        '200':
+          description: A list of TED Talk transcripts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    talk_id:
+                      type: string
+                    transcript:
+                      type: string
+        '404':
+          description: TED Talk transcripts not found
+  /ted_talks/list_all_talks/:
+    get:
+      operationId: listAllTedTalks
+      summary: List All TED Talks
+      description: Lists all TED Talks.
+      responses:
+        '200':
+          description: A list of all TED Talks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    talk_id:
+                      type: string
+                    title:
+                      type: string
+        '404':
+          description: TED Talks not found
+  /youtube/get_video_details/:
+    get:
+      operationId: getYouTubeVideoDetails
+      summary: Get YouTube Video Details
+      description: Retrieves details for a YouTube video.
+      parameters:
+        - name: video_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Details of the YouTube video
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  video_id:
+                    type: string
+                  title:
+                    type: string
+                  description:
+                    type: string
+                  channel:
+                    type: string
+        '404':
+          description: YouTube video not found
+  /youtube/get_youtube_transcript/:
+    get:
+      operationId: getYouTubeTranscript
+      summary: Get YouTube Transcript
+      description: Retrieves the transcript for a YouTube video.
+      parameters:
+        - name: video_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Transcript of the YouTube video
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  video_id:
+                    type: string
+                  transcript:
+                    type: string
+        '404':
+          description: YouTube transcript not found
+  /openai/gpt4:
+    post:
+      operationId: processTranscriptWithGpt4
+      summary: Process Transcript with GPT-4
+      description: Sends a transcript to the OpenAI GPT-4 API for processing.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transcript:
+                  type: string
+                max_tokens:
+                  type: integer
+                temperature:
+                  type: number
+      responses:
+        '200':
+          description: GPT-4 response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  object:
+                    type: string
+                  created:
+                    type: integer
+                  model:
+                    type: string
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        text:
+                          type: string
+                        index:
+                          type: integer
+                        logprobs:
+                          type: object
+                          nullable: true
+                        finish_reason:
+                          type: string
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
