@@ -19,14 +19,14 @@ class GetYoutubeUrl(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-class GetYoutubeData(APIView):
-    @csrf_exempt
-    def post(self, request):
-        try:
-            response = get_youtube_data(request)
-            return Response({'response': response}, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#class GetYoutubeData(APIView):
+#    @csrf_exempt
+#    def post(self, request):
+#        try:
+#            response = get_youtube_data(request)
+#            return Response({'response': response}, status=status.HTTP_200_OK)
+#        except Exception as e:
+#            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class GetTedTalkTranscript(APIView):
     @csrf_exempt
