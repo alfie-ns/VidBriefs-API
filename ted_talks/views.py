@@ -90,19 +90,19 @@ def list_all_talks(request):
     
 #def user_interests: [ ] # User interests to be as an ai guesses user'
 
-#def get_recommendations(request):
-#    # Assuming you have a way to get the user's watched talks
-#    user = request.user  # You'll need to implement user authentication
-#    watched_talks = TedTalk.objects.filter(watched_by=user)  # You'll need to implement a way to track watched talks
-#
-#    user_interests = guess_user_interests(watched_talks)
-#    all_talks = TedTalk.objects.all()
-#    recommended_talks = recommend_talks(user_interests, all_talks)
-#
-#    recommendations = [summarize_talk(talk) for talk in recommended_talks]
-#
-#    return JsonResponse({'recommendations': recommendations})
-#
+def get_recommendations(request):
+    # Assuming you have a way to get the user's watched talks
+    user = request.user  # You'll need to implement user authentication
+    watched_talks = TedTalk.objects.filter(watched_by=user)  # You'll need to implement a way to track watched talks
+
+    user_interests = guess_user_interests(watched_talks)
+    all_talks = TedTalk.objects.all()
+    recommended_talks = recommend_talks(user_interests, all_talks)
+
+    recommendations = [summarize_talk(talk) for talk in recommended_talks]
+
+    return JsonResponse({'recommendations': recommendations})
+
 
 def recommend_talks(request):
     # Placeholder implementation

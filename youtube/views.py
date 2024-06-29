@@ -13,29 +13,56 @@ import os
 class GetYoutubeUrl(APIView):
     @csrf_exempt
     def post(self, request):
-        # Parse JSON data from the request body
-        response = get_youtube_transcript(request)
-        # Return response to app
-        return Response({'response': response}, status=status.HTTP_200_OK)
+        try:
+            response = get_youtube_transcript(request)
+            return Response({'response': response}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 class GetYoutubeData(APIView):
     @csrf_exempt
     def post(self, request):
-        # Parse JSON data from the request body
-        response = get_youtube_data(request)
-        # Return response to app
-        return Response({'response': response}, status=status.HTTP_200_OK)
+        try:
+            response = get_youtube_data(request)
+            return Response({'response': response}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-def get_ted_talk_transcript(request):
-    return JsonResponse({"message": "TED Talk Transcript"})
+class GetTedTalkTranscript(APIView):
+    @csrf_exempt
+    def post(self, request):
+        try:
+            # Your logic to get TED talk transcript here
+            return Response({"message": "TED Talk Transcript"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class RecordInteraction(APIView):
+    @csrf_exempt
+    def post(self, request):
+        try:
+            # Your logic to record interaction here
+            return Response({"message": "Interaction recorded"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class RecommendationInfo(APIView):
+    @csrf_exempt
+    def get(self, request, user_id):
+        try:
+            # Your logic to get recommendations here
+            return Response({"recommendations": []}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
   
-def record_interaction(request):
-    # Endpoint to record user interactions
-    # Extract interaction data from request
-    # Save to UserInteraction model
-    pass
+#def record_interaction(request):
+#    # Endpoint to record user interactions
+#    # Extract interaction data from request
+#    # Save to UserInteraction model
+#    pass
+#
+#def recommendation_info(request, user_id):
+#    # Endpoint to provide recommendations
+#    # Use user_id to tailor recommendations
+#    pass
 
-def recommendation_info(request, user_id):
-    # Endpoint to provide recommendations
-    # Use user_id to tailor recommendations
-    pass

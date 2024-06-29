@@ -1,8 +1,10 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 from urllib.parse import urlparse, parse_qs
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 # Function to get the transcript of a YouTube video, which'll be fed to GPT-4o for summary in .swift appp
+@csrf_exempt
 def get_youtube_transcript(request):
 
     # Get url from request body
