@@ -39,7 +39,7 @@ def find_tedtalk_file(user_input, directory):
     return None
 
 @csrf_exempt
-def get_tedtalk_transcripts(request):
+def get_tedtalk_transcript(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)  # Load JSON data from request body
