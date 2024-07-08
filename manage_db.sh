@@ -6,7 +6,8 @@ BACKUP_DIR="db_backups"
 BACKUP_FILE="$BACKUP_DIR/db_backup_$(date +'%Y%m%d_%H%M%S').sqlite3"
 
 # Ensure the backup directory exists
-mkdir -p "$BACKUP_DIR"
+mkdir -p "$BACKUP_DIR" 
+
 
 function show_usage {
     echo "Usage: $0 {backup|restore|init|reset|status}"
