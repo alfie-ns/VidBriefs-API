@@ -49,3 +49,5 @@ def get_tedtalk_transcript(request):
     except Exception as e:
         logger.exception(f"An unexpected error occurred: {str(e)}")
         return JsonResponse({'error': 'An unexpected error occurred'}, status=500)
+    
+    
