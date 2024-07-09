@@ -1,4 +1,3 @@
-(venv) (base) oladeanio@Alfies-MacBook-Pro cleaned_ted_archive_data % ls                                                 
 3D_printing_to_bring_book_characters_to_life_Carla_Diana.md
 4_simple_ways_to_have_a_great_idea_Richard_St_John.md
 A_1_2_step_into_a_new_era_of_activism_and_enlightenment_Camille_Brown.md
@@ -477,4 +476,3 @@ Why_you_should_learn_about_the_city_you_live_in_Mindy_Thompson_Fullilove.md
 Words_worth_knowing_from_TED2015_Erin_McKean.md
 Words_worth_knowing_from_TED2016_Erin_McKean.md
 WorldSpace_The_world_s_first_satellite_radio_network_Noah_Samara.md
-(venv) (base) oladeanio@Alfies-MacBook-Pro cleaned_ted_archive_data % 
