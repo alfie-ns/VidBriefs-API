@@ -5,4 +5,5 @@ urlpatterns = [
     path('youtube/', include('youtube.urls')), # youtube URL
     path('ted_talks/', include('ted_talks.urls')),
     path('admin/', admin.site.urls), # Admin URL
+    path('registration/', include('registration.urls')), # Registration URL
 ]

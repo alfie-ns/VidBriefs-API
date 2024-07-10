@@ -37,6 +37,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1' # Localhost for testing
     ]
 
+# utilise django's built-in user model
+AUTH_USER_MODEL = 'registration.CustomUser'
 
 
 # Application definition
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework', # rest framework
     'rest_framework.authtoken', # rest framework auth token
     'ted_talks', # ted_talks app
+    'registration', # registration app
 ]
 
 MIDDLEWARE = [
@@ -96,6 +99,9 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        },
     }
 }
 

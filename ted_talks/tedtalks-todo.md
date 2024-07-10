@@ -1,6 +1,7 @@
 - [X] Get a list of all tedtalks availaibe to summarise
 - [X] Get transcript from API call
 - [X] ListAllTalks API Request
+- [ ] Test API endpoints
 - [ ] Test API endpoints for reccomendations
 - [ ] reccomendations.py
 - [ ] Get AI to put ListAllTalks into categories
