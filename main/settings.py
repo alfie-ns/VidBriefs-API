@@ -38,7 +38,7 @@ ALLOWED_HOSTS = [
     ]
 
 # utilise django's built-in user model
-AUTH_USER_MODEL = 'registration.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 # Application definition
@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'rest_framework', # rest framework
     'rest_framework.authtoken', # rest framework auth token
     'ted_talks', # ted_talks app
-    'registration', # registration app
+    'accounts', # accounts app
 ]
 
 MIDDLEWARE = [
