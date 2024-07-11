@@ -3,7 +3,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from .models import TedTalk, UserWatchedTalk, APIToken
+from .models import TedTalk, UserWatchedTalk
 from .recommendations import get_user_interests, recommend_talks, summarize_talk
 import os, markdown, json
 from django.db.models import Q
@@ -12,6 +12,12 @@ from pathlib import Path
 from .get_tedtalk_transcript import get_tedtalk_transcript
 from django.contrib.auth.models import User
 from .auth_utils import create_token_for_user, token_required
+from django.contrib.auth.models import User
+from .auth_utils import create_token_for_user
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .auth_utils import token_required
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 TED_TALKS_DIR = BASE_DIR / 'TED-talks' / 'cleaned_ted_archive_data'
@@ -83,16 +89,6 @@ def load_transcript_from_markdown(file_path):
     except FileNotFoundError:
         return None
 
-def list_all_ted_talks(directory):
-    all_talks = []
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            if file.endswith('.md'):
-                file_path = os.path.join(root, file)
-                title = file.replace('_', ' ').replace('.md', '')
-                all_talks.append(title)
-    return all_talks
-
 def find_tedtalk_file(user_input, directory):
     for root, dirs, files in os.walk(directory):
         for filename in files:
@@ -130,10 +126,21 @@ def get_tedtalk_transcript(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+def list_all_ted_talks(directory):
+    all_talks = []
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.md'):
+                file_path = os.path.join(root, file)
+                title = file.replace('_', ' ').replace('.md', '')
+                all_talks.append(title)
+    return all_talks
+
+@csrf_exempt
 @token_required
 def list_all_talks(request):
     if request.method == 'GET':
-        all_talks = list_all_ted_talks(BASE_DIR)
+        all_talks = list_all_ted_talks(TED_TALKS_DIR)
         return JsonResponse({'ted_talks': all_talks})
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)

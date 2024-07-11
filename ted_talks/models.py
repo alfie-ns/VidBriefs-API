@@ -1,3 +1,5 @@
+# ted_talks/models.py
+
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
@@ -26,10 +28,10 @@ class UserWatchedTalk(models.Model):
 
 # --------------------------------------------------------------
 # APIToken model [ ] 
-class APIToken(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Token for {self.user.username}"
+#class APIToken(models.Model):
+#    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#    token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+#    created_at = models.DateTimeField(auto_now_add=True)
+#
+#    def __str__(self):
+#        return f"Token for {self.user.username}"
