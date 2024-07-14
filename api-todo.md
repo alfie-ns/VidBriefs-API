@@ -7,6 +7,7 @@
 - [X] test login
 - [X] Implement user tokens into authorisation for requests
 - [X] Re-incorpoate TED-talks folder into ted_talks django app
+- [ ] Test endpoints
 - [ ] Mqke one single function to summarise a tedtalk
 - [ ] Finish off recommendations.py (also work on YouTube and any other source)
 - [ ] Uni lecture note maker django app,
