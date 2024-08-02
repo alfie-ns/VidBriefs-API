@@ -9,7 +9,6 @@ import os, markdown, json
 from django.db.models import Q
 from django.conf import settings
 from pathlib import Path
-from .get_tedtalk_transcript import get_tedtalk_transcript
 from django.contrib.auth.models import User
 from .auth_utils import create_token_for_user, token_required
 from django.contrib.auth.models import User
@@ -18,9 +17,12 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .auth_utils import token_required
+import logging
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-TED_TALKS_DIR = BASE_DIR / 'TED-talks' / 'cleaned_ted_archive_data'
+logger = logging.getLogger(__name__)
+
+def test_view(request):
+    return JsonResponse({"message": "Test view working"})
 
 @csrf_exempt
 def register_user(request):
@@ -96,51 +98,60 @@ def find_tedtalk_file(user_input, directory):
                 return os.path.join(root, filename)
     return None
 
+@csrf_exempt
 @token_required
 def get_tedtalk_transcript(request):
+    logger.info("get_tedtalk_transcript view function called")
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
             title = data.get('title')
             
+            logger.info(f"Searching for title: {title}")
+            logger.info(f"TED_TALKS_DIR: {settings.TED_TALKS_DIR}")
+            
             if not title:
                 return JsonResponse({'error': 'Title is required'}, status=400)
 
-            search_title = title.lower().replace(' ', '_')
+            search_title = title.lower().replace(' ', '_').replace('.md', '')
+            logger.info(f"Search title: {search_title}")
             
-            for file in TED_TALKS_DIR.glob(f"{search_title}*.md"):
-                content = file.read_text(encoding='utf-8')
-                html_content = markdown.markdown(content)
-                return JsonResponse({
-                    'title': file.stem.replace('_', ' '),
-                    'transcript': html_content
-                })
+            for file in settings.TED_TALKS_DIR.glob('**/*.md'):
+                if search_title in file.stem.lower():
+                    logger.info(f"Found file: {file}")
+                    content = file.read_text(encoding='utf-8')
+                    html_content = markdown.markdown(content)
+                    return JsonResponse({
+                        'title': file.stem.replace('_', ' '),
+                        'transcript': html_content
+                    })
 
+            logger.warning(f"No file found for search title: {search_title}")
             return JsonResponse({
                 'error': f"TED Talk with title containing '{title}' not found",
                 'suggestion': "Try with a different title or check if the file exists"
             }, status=404)
         
         except Exception as e:
+            logger.exception(f"Error in get_tedtalk_transcript: {str(e)}")
             return JsonResponse({'error': str(e)}, status=500)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
-
-def list_all_ted_talks(directory):
-    all_talks = []
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            if file.endswith('.md'):
-                file_path = os.path.join(root, file)
-                title = file.replace('_', ' ').replace('.md', '')
-                all_talks.append(title)
-    return all_talks
 
 @csrf_exempt
 @token_required
 def list_all_talks(request):
     if request.method == 'GET':
         all_talks = list_all_ted_talks(TED_TALKS_DIR)
+        if not all_talks:
+            return JsonResponse({
+                'error': 'No talks found',
+                'debug_info': {
+                    'TED_TALKS_DIR': str(TED_TALKS_DIR),
+                    'directory_exists': os.path.exists(TED_TALKS_DIR),
+                    'directory_contents': os.listdir(TED_TALKS_DIR) if os.path.exists(TED_TALKS_DIR) else 'Directory not found'
+                }
+            }, status=404)
         return JsonResponse({'ted_talks': all_talks})
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
