@@ -24,27 +24,27 @@ logger = logging.getLogger(__name__)
 def test_view(request):
     return JsonResponse({"message": "Test view working"})
 
-@csrf_exempt
-def register_user(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            username = data.get('username')
-            password = data.get('password')
-            
-            if not username or not password:
-                return JsonResponse({'error': 'Username and password are required'}, status=400)
-            
-            user = User.objects.create_user(username=username, password=password)
-            token = create_token_for_user(user)
-            
-            return JsonResponse({'token': str(token)})
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON'}, status=400)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+#@csrf_exempt
+#def register_user(request):
+#    if request.method == 'POST':
+#        try:
+#            data = json.loads(request.body)
+#            username = data.get('username')
+#            password = data.get('password')
+#            
+#            if not username or not password:
+#                return JsonResponse({'error': 'Username and password are required'}, status=400)
+#            
+#            user = User.objects.create_user(username=username, password=password)
+#            token = create_token_for_user(user)
+#            
+#            return JsonResponse({'token': str(token)})
+#        except json.JSONDecodeError:
+#            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+#        except Exception as e:
+#            return JsonResponse({'error': str(e)}, status=500)
+#    else:
+#        return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 @token_required
 def get_recommendations(request):
@@ -98,7 +98,7 @@ def find_tedtalk_file(user_input, directory):
                 return os.path.join(root, filename)
     return None
 
-@csrf_exempt
+@csrf_exempt 
 @token_required
 def get_tedtalk_transcript(request):
     logger.info("get_tedtalk_transcript view function called")
@@ -142,7 +142,7 @@ def get_tedtalk_transcript(request):
 @token_required
 def list_all_talks(request):
     if request.method == 'GET':
-        all_talks = list_all_ted_talks(TED_TALKS_DIR)
+        all_talks = list_all_talks(TED_TALKS_DIR)
         if not all_talks:
             return JsonResponse({
                 'error': 'No talks found',
@@ -158,7 +158,7 @@ def list_all_talks(request):
 
 # Remove or update these as needed
 def get_recommendations(request):
-    # ... (keep your existing implementation)
+    # ... 
     pass
 
 def recommend_talks(request):
