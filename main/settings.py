@@ -17,30 +17,7 @@ import os
 from dotenv import load_dotenv
 from django.core.exceptions import ImproperlyConfigured
 
-# Load environment variables from .env file
-load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Define TED_TALKS_DIR with the correct path
-TED_TALKS_DIR = BASE_DIR / 'ted_talks' / 'TED-talks' / 'cleaned_ted_archive_data'
-
-# Print the path for debugging
-print(f"TED_TALKS_DIR set to: {TED_TALKS_DIR}")
-
-
-# Print the path for debugging
-print(f"TED_TALKS_DIR set to: {TED_TALKS_DIR}")
-
-# Check if the directory exists
-
-# Check if the directory exists
-if not os.path.exists(TED_TALKS_DIR):
-    print(f"Warning: TED_TALKS_DIR does not exist: {TED_TALKS_DIR}")
-else:
-    print(f"TED_TALKS_DIR exists and contains: {os.listdir(TED_TALKS_DIR)}")
-    
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 

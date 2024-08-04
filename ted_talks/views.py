@@ -19,32 +19,18 @@ import json
 from .auth_utils import token_required
 import logging
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Define TED_TALKS_DIR with the correct path
+TED_TALKS_DIR = BASE_DIR / 'ted_talks' / 'TED-talks' / 'cleaned_ted_archive_data'
+
+
 logger = logging.getLogger(__name__)
 
 def test_view(request):
     return JsonResponse({"message": "Test view working"})
 
-#@csrf_exempt
-#def register_user(request):
-#    if request.method == 'POST':
-#        try:
-#            data = json.loads(request.body)
-#            username = data.get('username')
-#            password = data.get('password')
-#            
-#            if not username or not password:
-#                return JsonResponse({'error': 'Username and password are required'}, status=400)
-#            
-#            user = User.objects.create_user(username=username, password=password)
-#            token = create_token_for_user(user)
-#            
-#            return JsonResponse({'token': str(token)})
-#        except json.JSONDecodeError:
-#            return JsonResponse({'error': 'Invalid JSON'}, status=400)
-#        except Exception as e:
-#            return JsonResponse({'error': str(e)}, status=500)
-#    else:
-#        return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 @token_required
 def get_recommendations(request):
