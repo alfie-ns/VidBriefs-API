@@ -17,16 +17,18 @@ load_env() {
     fi
 }
 
-# Load environment variables
+# ---
+
+# 0. Load environment variables
 load_env
 
-# Ensure PostgreSQL service is running
+# 1. Ensure PostgreSQL service is running
 if ! pg_isready -h $DB_HOST -p $DB_PORT > /dev/null 2>&1; then
     echo "Starting PostgreSQL service..."
     brew services start postgresql
 fi
 
-# Create the superuser role if not exists
+# 2. Create the superuser role if not exists
 psql -h $DB_HOST -p $DB_PORT -d template1 -U $(whoami) <<EOF
 DO \$\$
 BEGIN
@@ -39,7 +41,7 @@ END
 \$\$;
 EOF
 
-# Create PostgreSQL role if it doesn't exist
+# 3. Create PostgreSQL role if it doesn't exist
 psql -h $DB_HOST -p $DB_PORT -d template1 -U $(whoami) <<EOF
 DO \$\$
 BEGIN
@@ -53,8 +55,8 @@ END
 \$\$;
 EOF
 
-# Create the database if it doesn't exist
+# 4. Create the database if it doesn't exist
 psql -h $DB_HOST -p $DB_PORT -d template1 -U $(whoami) -c "
 SELECT 1 FROM pg_database WHERE datname = '$DB_NAME';" | grep -q 1 || psql -h $DB_HOST -p $DB_PORT -d template1 -U $(whoami) -c "CREATE DATABASE \"$DB_NAME\" OWNER \"$DB_USER\";"
 
-echo "Database setup complete."
+echo -e "\nDatabase setup complete.\n"

@@ -17,12 +17,12 @@ if source venv/bin/activate; then
     # Start Django server
     echo "Starting Django server..."
     if python manage.py runserver; then # if server started successfully
-        echo "Server started."
+        echo -e "\nServer started\n."
     else # if server failed to start
-        echo "Failed to start the Django server."
+        echo -e "\nFailed to start the Django server.\n"
         exit 1 # 1 indicates an error
     fi
 else # if virtual environment failed to activate
-    echo "Failed to activate the virtual environment."
+    echo -e "\nFailed to activate the virtual environment.\n"
     exit 1 # safe exit
 fi

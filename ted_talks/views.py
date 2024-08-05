@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .models import TedTalk, UserWatchedTalk
 from .recommendations import get_user_interests, recommend_talks, summarize_talk
-import os, markdown, json
+import os, markdown, json, re, datetime
 from django.db.models import Q
 from django.conf import settings
 from pathlib import Path
@@ -87,24 +87,32 @@ def find_tedtalk_file(user_input, directory):
 @csrf_exempt 
 @token_required
 def get_tedtalk_transcript(request):
-    logger.info("get_tedtalk_transcript view function called")
-    if request.method == 'POST':
-        try:
+    logger.info("get_tedtalk_transcript view function called") # print
+    if request.method == 'POST': # if post
+        try: # try to fetch specified ted talk and extract transcript
             data = json.loads(request.body)
             title = data.get('title')
             
-            logger.info(f"Searching for title: {title}")
-            logger.info(f"TED_TALKS_DIR: {settings.TED_TALKS_DIR}")
+            logger.info(f"""
+                        Searching for title: {title}
+                        """) # print
+            logger.info(f"""
+                        TED_TALKS_DIR: {TED_TALKS_DIR}
+                        """) # print
             
             if not title:
                 return JsonResponse({'error': 'Title is required'}, status=400)
 
-            search_title = title.lower().replace(' ', '_').replace('.md', '')
-            logger.info(f"Search title: {search_title}")
-            
-            for file in settings.TED_TALKS_DIR.glob('**/*.md'):
+            search_title = title.lower().replace(' ', '_').replace('.md', '') # title of talk searches for is clenaed up link('test_talk.md' -> 'test talk')
+            logger.info(f"""
+                        Search title: {search_title}
+                        """)
+            # glob: Iterate over this subtree and yield all existing files (of any kind, including directories) matching the given relative pattern
+            for file in TED_TALKS_DIR.glob('**/*.md'): # for every file inside TED-talks
                 if search_title in file.stem.lower():
-                    logger.info(f"Found file: {file}")
+                    logger.info(f"""
+                                Found file: {file}
+                                """)
                     content = file.read_text(encoding='utf-8')
                     html_content = markdown.markdown(content)
                     return JsonResponse({
@@ -128,12 +136,12 @@ def get_tedtalk_transcript(request):
 @token_required
 def list_all_talks(request):
     if request.method == 'GET':
-        all_talks = list_all_talks(TED_TALKS_DIR)
+        all_talks = get_all_talks(TED_TALKS_DIR)
         if not all_talks:
             return JsonResponse({
                 'error': 'No talks found',
                 'debug_info': {
-                    'TED_TALKS_DIR': str(TED_TALKS_DIR),
+                    'TED_TALKS_DIR': TED_TALKS_DIR,
                     'directory_exists': os.path.exists(TED_TALKS_DIR),
                     'directory_contents': os.listdir(TED_TALKS_DIR) if os.path.exists(TED_TALKS_DIR) else 'Directory not found'
                 }
@@ -141,6 +149,54 @@ def list_all_talks(request):
         return JsonResponse({'ted_talks': all_talks})
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+def get_all_talks(directory):
+    talks = []
+    for filename in os.listdir(directory):
+        if filename.endswith('.md'):
+            # Remove the .md extension and replace underscores with spaces
+            talk_name = os.path.splitext(filename)[0].replace('_', ' ')
+            talks.append(talk_name)
+    return talks
+
+def parse_talk_metadata(content):
+    metadata = {}
+    
+    # Extract title
+    title_match = re.search(r'# (.*)', content)
+    if title_match:
+        metadata['title'] = title_match.group(1)
+    
+    # Extract speaker
+    speaker_match = re.search(r'## Speaker: (.*)', content)
+    if speaker_match:
+        metadata['speaker'] = speaker_match.group(1)
+    
+    # Extract date
+    date_match = re.search(r'## Date: (.*)', content)
+    if date_match:
+        try:
+            date = datetime.strptime(date_match.group(1), '%B %Y')
+            metadata['date'] = date.strftime('%Y-%m-%d')
+        except ValueError:
+            metadata['date'] = date_match.group(1)  # Keep original if parsing fails
+    
+    # Extract duration
+    duration_match = re.search(r'## Duration: (.*)', content)
+    if duration_match:
+        metadata['duration'] = duration_match.group(1)
+    
+    # Extract views (if available)
+    views_match = re.search(r'## Views: (.*)', content)
+    if views_match:
+        metadata['views'] = views_match.group(1)
+    
+    # Extract a brief description (first paragraph after "## Transcript")
+    transcript_match = re.search(r'## Transcript\s+(.+?)(?=\n\n|\Z)', content, re.DOTALL)
+    if transcript_match:
+        metadata['description'] = transcript_match.group(1).strip()
+    
+    return metadata
 
 # Remove or update these as needed
 def get_recommendations(request):

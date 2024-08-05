@@ -27,15 +27,6 @@ class GetYoutubeUrl(APIView):
 #            return Response({'response': response}, status=status.HTTP_200_OK)
 #        except Exception as e:
 #            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-class GetTedTalkTranscript(APIView):
-    @csrf_exempt
-    def post(self, request):
-        try:
-            # Your logic to get TED talk transcript here
-            return Response({"message": "TED Talk Transcript"}, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class RecordInteraction(APIView):
     @csrf_exempt

@@ -21,9 +21,11 @@ from django.core.exceptions import ImproperlyConfigured
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+load_dotenv()
+
 
 # KEEP KEY SECRET WHEN DEPLOYING TO PRODUCTION
-SECRET_KEY = 'django-insecure-(=#cgyi8l)k(tr^_1dzrp7#8vik*ihu98gm!c)mfd%arq4w-)*'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # TURN OFF DEBUG WHEN DEPLOYING TO PRODUCTION
 DEBUG = True
@@ -38,7 +40,7 @@ ALLOWED_HOSTS = [
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
-# Application definition
+# Application definitionw
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'youtube', # youtube app h
+    'youtube', # youtube app
     'rest_framework', # rest framework
     'rest_framework.authtoken', # rest framework auth token
     'ted_talks', # ted_talks app

@@ -10,6 +10,8 @@ load_env() {
     fi
 }
 
+# ---
+
 load_env
 
 # Activate virtual environment
