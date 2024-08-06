@@ -3,11 +3,10 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+#from .recommendations import get_user_interests, recommend_talks, summarize_talk
 from .models import TedTalk, UserWatchedTalk
-from .recommendations import get_user_interests, recommend_talks, summarize_talk
 import os, markdown, json, re, datetime
 from django.db.models import Q
-from django.conf import settings
 from pathlib import Path
 from django.contrib.auth.models import User
 from .auth_utils import create_token_for_user, token_required

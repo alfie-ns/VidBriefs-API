@@ -8,6 +8,6 @@ urlpatterns = [
     path('list_all_talks/', views.list_all_talks, name='list_all_talks'),
     #path('reco mmendations/', views.get_recommendations, name='get_recommendations'),
     #path('mark_watched/', views.mark_talk_as_watched, name='mark_talk_as_watched'),
-    path('recommend_talks/', views.recommend_talks, name='recommend_talks'),
+    #path('recommend_talks/', views.recommend_talks, name='recommend_talks'),
     #path('test/', views.test_view, name='test_view'),
 ]
