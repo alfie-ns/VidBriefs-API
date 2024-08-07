@@ -31,7 +31,7 @@ def test_view(request):
     return JsonResponse({"message": "Test view working"})
 
 
-@token_required
+#@token_required
 def get_recommendations(request):
     if request.method == 'GET':
         user = request.user
@@ -47,7 +47,7 @@ def get_recommendations(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-@token_required
+#@token_required
 def mark_talk_as_watched(request):
     if request.method == 'POST':
         try:
@@ -83,8 +83,9 @@ def find_tedtalk_file(user_input, directory):
                 return os.path.join(root, filename)
     return None
 
-@csrf_exempt 
-@token_required
+#@csrf_exempt 
+#@token_required
+@csrf_exempt
 def get_tedtalk_transcript(request):
     logger.info("get_tedtalk_transcript view function called") # print
     if request.method == 'POST': # if post
@@ -131,8 +132,8 @@ def get_tedtalk_transcript(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-@csrf_exempt
-@token_required
+#@csrf_exempt
+#@token_required
 def list_all_talks(request):
     if request.method == 'GET':
         all_talks = get_all_talks(TED_TALKS_DIR)
