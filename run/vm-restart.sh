@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# run this API on DigitalOcean VM
+# [ ] run this API on DigitalOcean VM
 
 cd ..
 
