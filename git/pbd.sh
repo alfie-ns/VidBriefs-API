@@ -4,13 +4,13 @@ cd ..
 current_dir=$(basename "$PWD")
 
 # if succesfully pushed, back out of the directory and delete it off local
-if ./push.sh; then
+if ./pu.sh; then
   # Change to the parent directory if push.sh succeeds
   cd ..
   # Remove the original directory
   rm -rf "$current_dir"
 else
-  echo "Error: push.sh failed. Exiting."
+  echo "Error: pu.sh failed. Exiting."
 fi
 
 # 1. Push
